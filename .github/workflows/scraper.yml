@@ -4,12 +4,13 @@ on:
   schedule:
     - cron: '0 * * * *'   # Runs every hour at minute 0
   workflow_dispatch:       # Allows manual trigger from GitHub UI
-
+  
+permissions:
+      contents: write     # Allows pushing back to repo
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write     # Allows pushing back to repo
+    
 
     steps:
       - name: Checkout repository
@@ -36,4 +37,4 @@ jobs:
 
       - name: Push changes back to repo
         run: |
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:Projects
+         git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:Projects
